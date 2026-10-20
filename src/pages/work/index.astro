@@ -1,12 +1,11 @@
 ---
-import Capabilities from "../../components/Capabilities.astro";
 import Base from "../../layouts/Base.astro";
-import { earlierWork, experience, lessons } from "../../data/profile";
+import { earlierRoles, education, experience, lessons, stack } from "../../data/profile";
 ---
 
-<Base title="Work" description="Travvir, earlier freelance work, and the kinds of systems Priyam Harsh works on.">
+<Base title="Work" description="Lead Software Developer at Travvir, earlier roles, and education.">
   <h1 class="text-3xl font-semibold tracking-tight">Work</h1>
-  <p class="mt-4 leading-relaxed text-muted">Employment first, then the kinds of systems I work on.</p>
+  <p class="mt-4 leading-relaxed text-muted">Roles, then a short stack.</p>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="experience-heading">
     <h2 id="experience-heading" class="text-xl font-semibold tracking-tight">Experience</h2>
@@ -14,7 +13,6 @@ import { earlierWork, experience, lessons } from "../../data/profile";
       <h3 class="text-lg font-medium">
         <a class="link" href={experience.url}>{experience.organization}</a>
       </h3>
-      <p class="mt-1 font-mono text-sm text-muted">{experience.location}</p>
       <ul class="mt-4 grid gap-3">
         {
           experience.roles.map((role) => (
@@ -26,19 +24,36 @@ import { earlierWork, experience, lessons } from "../../data/profile";
         }
       </ul>
       <p class="mt-4 leading-relaxed">{experience.summary}</p>
-      <p class="mt-3 leading-relaxed">
-        <span class="font-medium">What I own.</span> {experience.owns}
-      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-5 leading-relaxed">
+        {experience.bullets.map((bullet) => <li>{bullet}</li>)}
+      </ul>
     </article>
 
-    <article class="mt-10">
-      <h3 class="text-lg font-medium">{earlierWork.title}</h3>
-      <p class="mt-1 font-mono text-sm text-muted">{earlierWork.dates}</p>
-      <p class="mt-3 leading-relaxed">{earlierWork.summary}</p>
-      <p class="todo">
-        TODO: add company or client names here if you want them public. None are listed on purpose.
-      </p>
-    </article>
+    {
+      earlierRoles.map((role) => (
+        <article class="mt-10">
+          <h3 class="text-lg font-medium">
+            {role.organization ? `${role.title}, ${role.organization}` : role.title}
+          </h3>
+          {role.dates && <p class="mt-1 font-mono text-sm text-muted">{role.dates}</p>}
+          {role.summary && <p class="mt-3 leading-relaxed">{role.summary}</p>}
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="education-heading">
+    <h2 id="education-heading" class="text-xl font-semibold tracking-tight">Education</h2>
+    <ul class="mt-4 grid gap-4">
+      {
+        education.map((item) => (
+          <li>
+            <p class="font-medium">{item.title}</p>
+            <p class="mt-1 font-mono text-sm text-muted">{item.dates}</p>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="lessons-heading">
@@ -52,8 +67,8 @@ import { earlierWork, experience, lessons } from "../../data/profile";
     </ol>
   </section>
 
-  <section class="mt-12 border-t border-line pt-8" aria-labelledby="capabilities-heading">
-    <h2 id="capabilities-heading" class="text-xl font-semibold tracking-tight">Skills</h2>
-    <Capabilities />
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="skills-heading">
+    <h2 id="skills-heading" class="text-xl font-semibold tracking-tight">Skills</h2>
+    <p class="mt-4 leading-relaxed">{stack.join(", ")}</p>
   </section>
 </Base>

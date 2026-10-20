@@ -1,13 +1,16 @@
 ---
 import Base from "../layouts/Base.astro";
-import { education, profile, skillGroups, timeline } from "../data/profile";
+import { education, profile, stack, timeline } from "../data/profile";
 ---
 
-<Base title="About" description="Priyam Harsh. Lead software engineer in Noida. BCA, St. Xavier's College, Ranchi.">
+<Base
+  title="About"
+  description="Priyam Harsh. Lead Software Developer in New Delhi. BCA, St. Xavier's College, Ranchi."
+>
   <h1 class="text-3xl font-semibold tracking-tight">About</h1>
   <div class="mt-4 space-y-4 leading-relaxed">
     <p>
-      I'm {profile.name}, a lead software engineer in {profile.location}. I build backend systems, cloud
+      I'm {profile.name}, a Lead Software Developer in {profile.location}. I build backend systems, cloud
       infrastructure, and mobile apps. Before that I spent time on security research: reverse engineering, packet
       analysis, and responsible disclosure.
     </p>
@@ -23,7 +26,7 @@ import { education, profile, skillGroups, timeline } from "../data/profile";
       {
         timeline.map((item) => (
           <li>
-            <p class="font-mono text-sm text-muted">{item.dates}</p>
+            {item.dates && <p class="font-mono text-sm text-muted">{item.dates}</p>}
             <p class="mt-1 font-medium">{item.title}</p>
             {item.detail && <p class="mt-1 leading-relaxed text-muted">{item.detail}</p>}
           </li>
@@ -34,23 +37,21 @@ import { education, profile, skillGroups, timeline } from "../data/profile";
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="skills-heading">
     <h2 id="skills-heading" class="text-xl font-semibold tracking-tight">Skills</h2>
-    <dl class="mt-4 grid gap-4">
-      {
-        skillGroups.map((group) => (
-          <div>
-            <dt class="font-mono text-sm text-muted">{group.label}</dt>
-            <dd class="mt-1 leading-relaxed">{group.items.join(", ")}</dd>
-          </div>
-        ))
-      }
-    </dl>
+    <p class="mt-4 leading-relaxed">{stack.join(", ")}</p>
   </section>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="education-heading">
     <h2 id="education-heading" class="text-xl font-semibold tracking-tight">Education</h2>
-    <p class="mt-4 leading-relaxed">
-      {education.degree}, {education.school} ({education.years}).
-    </p>
+    <ul class="mt-4 grid gap-4">
+      {
+        education.map((item) => (
+          <li>
+            <p class="font-medium">{item.title}</p>
+            <p class="mt-1 font-mono text-sm text-muted">{item.dates}</p>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="resume-heading">

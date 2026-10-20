@@ -5,8 +5,8 @@
 
 export const profile = {
   name: "Priyam Harsh",
-  location: "Noida, India",
-  hero: "Lead Software Engineer. I build backend systems, cloud infrastructure and mobile apps. Former security researcher.",
+  location: "New Delhi, India",
+  hero: "Lead Software Developer. I build backend systems, cloud infrastructure and mobile apps. Former security researcher.",
   email: "priyamharsh14@gmail.com",
   socials: [
     { label: "GitHub", href: "https://github.com/priyamharsh14" },
@@ -17,24 +17,41 @@ export const profile = {
 
 export const experience = {
   organization: "Travvir",
-  role: "Lead Software Engineer",
-  location: "Noida, India",
+  role: "Lead Software Developer",
   url: "https://travvir.com/",
-  dates: "2021 – present (Lead since February 2024)",
-  summary:
-    "Leading engineering for an imaging and digital-twin platform: backend, cloud infrastructure, and mobile apps.",
-  owns: "Backend services, multi-cloud infrastructure (AWS and GCP), and the mobile capture apps and SDKs for iOS and Android.",
+  summary: "Travvir builds spatial AI, turning smartphone scans into 360° digital twins.",
   roles: [
-    { title: "Lead Software Engineer", dates: "February 2024 – present" },
-    { title: "Software Engineer", dates: "2021 – February 2024" },
+    { title: "Lead Software Developer", dates: "Feb 2024 – present" },
+    { title: "SDE1 (Software Development Engineer I)", dates: "Sep 2021 – Jan 2024" },
+  ],
+  bullets: [
+    "Built, deployed and has improved the company's 16K panorama image pipeline over several years, running on CPU and GPU compute.",
+    "Helped build a custom orchestration system from scratch that scales automatically across CPU and GPU instances on multiple clouds and our in-house servers.",
+    "Deployed and maintains the iOS and Android apps, including SDKs for both platforms.",
+    "Helped with data collection, data preparation and in-house model training.",
   ],
 } as const;
 
-export const earlierWork = {
-  title: "Freelance and internships",
-  dates: "Before 2021",
-  summary: "Building backend and web software for small teams and clients.",
-} as const;
+export const earlierRoles = [
+  {
+    title: "Software Engineer Intern",
+    organization: "Expertrons",
+    dates: "Dec 2020 – May 2021",
+    summary: "",
+  },
+  {
+    title: "Python Developer Intern",
+    organization: "Indian Cyber Security Solutions",
+    dates: "Feb 2019 – Apr 2019",
+    summary: "",
+  },
+  {
+    title: "Freelance",
+    organization: "",
+    dates: "",
+    summary: "Building software for clients.",
+  },
+] as const;
 
 /**
  * TODO: Priyam — confirm or rewrite these. They are general lessons, not a description of Travvir.
@@ -48,39 +65,57 @@ export const lessons = [
 
 export const timeline = [
   {
-    dates: "February 2024 – present",
-    title: "Lead Software Engineer, Travvir",
-    detail: "Noida, India.",
-  },
-  {
-    dates: "2021 – February 2024",
-    title: "Software Engineer, Travvir",
-    detail: "Noida, India.",
-  },
-  {
-    dates: "2018 – 2021",
-    title: "BCA, St. Xavier's College, Ranchi",
+    dates: "Feb 2024 – present",
+    title: "Lead Software Developer, Travvir",
     detail: "",
+  },
+  {
+    dates: "Sep 2021 – Jan 2024",
+    title: "SDE1 (Software Development Engineer I), Travvir",
+    detail: "",
+  },
+  {
+    dates: "Dec 2020 – May 2021",
+    title: "Software Engineer Intern, Expertrons",
+    detail: "",
+  },
+  {
+    dates: "Feb 2019 – Apr 2019",
+    title: "Python Developer Intern, Indian Cyber Security Solutions",
+    detail: "",
+  },
+  {
+    dates: "",
+    title: "Freelance",
+    detail: "Building software for clients.",
   },
 ] as const;
 
-/**
- * TODO: Priyam — edit these blurbs. They only name skills, not an employer’s systems.
- */
+export const stack = [
+  "Python",
+  "JavaScript/TypeScript",
+  "Kotlin/Java",
+  "Django",
+  "Flask",
+  "Node/Express",
+  "Vue",
+  "Flutter",
+  "RabbitMQ",
+  "WebRTC",
+  "OpenCV",
+  "CUDA",
+  "Nginx",
+  "Docker",
+  "AWS",
+  "GCP",
+  "MongoDB",
+  "SQL",
+] as const;
+
 export const capabilities = [
   {
-    title: "Backend and distributed systems",
-    summary: "Python, Node, Django, Flask, Express, RabbitMQ, MongoDB, and SQL.",
-    href: "",
-  },
-  {
-    title: "Cloud infrastructure",
-    summary: "AWS, GCP, Docker, Nginx, and CI/CD.",
-    href: "",
-  },
-  {
-    title: "Mobile and cross-platform",
-    summary: "Kotlin, Flutter, iOS/Android, and WebRTC.",
+    title: "Stack",
+    summary: stack.join(", "),
     href: "",
   },
   {
@@ -90,23 +125,13 @@ export const capabilities = [
   },
 ] as const;
 
-export const skillGroups = [
+export const education = [
   {
-    label: "Languages",
-    items: ["Python", "JS/TS", "Kotlin", "Java", "SQL", "Bash"],
+    title: "BCA (Computer Science), St. Xavier's College, Ranchi",
+    dates: "2018–2021",
   },
   {
-    label: "Frameworks and tools",
-    items: ["Django", "Flask", "Express/Node", "Vue", "Flutter", "WebRTC", "RabbitMQ"],
-  },
-  {
-    label: "Platforms",
-    items: ["AWS", "GCP", "Docker", "Nginx", "CI/CD", "MongoDB"],
+    title: "Xartup Startup Fellowship",
+    dates: "2021",
   },
 ] as const;
-
-export const education = {
-  degree: "BCA",
-  school: "St. Xavier's College, Ranchi",
-  years: "2018–2021",
-} as const;
