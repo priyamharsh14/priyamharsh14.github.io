@@ -1,9 +1,6 @@
 /**
- * Public facts only. Do not add client names, internal architecture,
- * techniques, specs, scale, or metrics.
- *
- * TODO: Priyam — review every Travvir string in this file against your NDA
- * before merging. Employment copy is role, dates, and one generic sentence.
+ * Public facts only. No client names, product internals, techniques, specs, or metrics.
+ * Travvir’s public site is https://travvir.com/ (checked against the live homepage).
  */
 
 export const profile = {
@@ -22,10 +19,32 @@ export const experience = {
   organization: "Travvir",
   role: "Lead Software Engineer",
   location: "Noida, India",
+  url: "https://travvir.com/",
   dates: "2021 – present (Lead since February 2024)",
   summary:
     "Leading engineering for an imaging and digital-twin platform: backend, cloud infrastructure, and mobile apps.",
+  owns: "Backend services, multi-cloud infrastructure (AWS and GCP), and the mobile capture apps and SDKs for iOS and Android.",
+  roles: [
+    { title: "Lead Software Engineer", dates: "February 2024 – present" },
+    { title: "Software Engineer", dates: "2021 – February 2024" },
+  ],
 } as const;
+
+export const earlierWork = {
+  title: "Freelance and internships",
+  dates: "Before 2021",
+  summary: "Building backend and web software for small teams and clients.",
+} as const;
+
+/**
+ * TODO: Priyam — confirm or rewrite these. They are general lessons, not a description of Travvir.
+ */
+export const lessons = [
+  "Treat the network and the device as unreliable. A flow that only works on a fast connection, with a careful operator, fails the day it leaves the desk.",
+  "Long-running compute has to be observable. If you cannot tell whether a job is working, stuck, or finished, you cannot operate it.",
+  "Running on more than one cloud is only useful if you can leave one of them. Keep the work portable, and keep the cloud-specific pieces at the edge.",
+  "Own the path from the phone to the service behind it. The failures that matter sit in that handoff, not in either half alone.",
+] as const;
 
 export const timeline = [
   {
@@ -35,9 +54,8 @@ export const timeline = [
   },
   {
     dates: "2021 – February 2024",
-    title: "Travvir",
-    detail:
-      "Noida, India. TODO: add the title you held before Lead. It was not in the source notes, so this line does not guess one.",
+    title: "Software Engineer, Travvir",
+    detail: "Noida, India.",
   },
   {
     dates: "2018 – 2021",
@@ -67,7 +85,7 @@ export const capabilities = [
   },
   {
     title: "Security research",
-    summary: "Past work. Hack The Box Hall of Fame, and critical findings reported through official channels.",
+    summary: "2019–2021. Hack The Box Hall of Fame, and acknowledgements from NCIIPC and CERT-In.",
     href: "/security/",
   },
 ] as const;
