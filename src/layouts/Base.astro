@@ -1,0 +1,78 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { integrations, siteUrl } from "../config";
+import { profile } from "../data/profile";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description = profile.hero, noindex = false } = Astro.props;
+const fullTitle = title ? `${title} · ${profile.name}` : profile.name;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? siteUrl);
+const goatcounter = integrations.goatcounter;
+const analyticsOn = goatcounter.enabled && goatcounter.code.length > 0;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          if (stored === "light" || stored === "dark") {
+            document.documentElement.dataset.theme = stored;
+            document.documentElement.style.colorScheme = stored;
+          }
+        } catch (error) {
+          /* ignore */
+        }
+      })();
+    </script>
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="author" content={profile.name} />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={profile.name} href="/rss.xml" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="bg-bg text-fg antialiased">
+    <a class="skip" href="#content">Skip to content</a>
+    <div class="mx-auto w-full max-w-[42.5rem] px-5 py-8 sm:py-12">
+      <Header />
+      <main id="content" class="pt-10">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <!-- TODO: GoatCounter is disabled. Set integrations.goatcounter in src/config.ts to turn it on. No tracker loads until then. -->
+    {
+      analyticsOn && (
+        <script
+          is:inline
+          data-goatcounter={`https://${goatcounter.code}.goatcounter.com/count`}
+          src="https://gc.zgo.at/count.js"
+          async
+        />
+      )
+    }
+  </body>
+</html>

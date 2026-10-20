@@ -1,0 +1,18 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Page not found" description="That path does not exist.">
+  <h1 class="text-3xl font-semibold tracking-tight">Page not found</h1>
+  <p class="mt-4 leading-relaxed text-muted">That path does not exist.</p>
+  <div class="terminal mt-8" aria-hidden="true">
+    <p><span class="prompt">visitor@priyam:~$</span> ls ./the-page-you-wanted</p>
+    <p class="err">ls: cannot access './the-page-you-wanted': No such file or directory</p>
+    <p><span class="prompt">visitor@priyam:~$</span> echo "wrong turn. the packets arrived. the page did not."</p>
+    <p>wrong turn. the packets arrived. the page did not.</p>
+    <p><span class="prompt">visitor@priyam:~$</span> cd /home</p>
+  </div>
+  <p class="mt-6">
+    <a class="link" href="/">Back home</a>
+  </p>
+</Base>

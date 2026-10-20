@@ -1,0 +1,64 @@
+<button
+  type="button"
+  data-theme-toggle
+  class="rounded-md border border-line px-2 py-1 text-sm text-muted hover:border-accent hover:text-fg"
+  aria-label="Color theme: System. Activate to change."
+>
+  <span data-theme-label>System</span>
+</button>
+
+<script>
+  const button = document.querySelector("[data-theme-toggle]");
+  const label = document.querySelector("[data-theme-label]");
+  if (button instanceof HTMLButtonElement && label instanceof HTMLElement) {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const modes = ["system", "light", "dark"] as const;
+    type Mode = (typeof modes)[number];
+
+    const stored = (): Mode => {
+      try {
+        const value = localStorage.getItem("theme");
+        if (value === "light" || value === "dark") return value;
+      } catch {
+        /* private mode */
+      }
+      return "system";
+    };
+
+    const apply = (mode: Mode) => {
+      const root = document.documentElement;
+      if (mode === "system") {
+        delete root.dataset.theme;
+        try {
+          localStorage.removeItem("theme");
+        } catch {
+          /* ignore */
+        }
+        root.style.colorScheme = "light dark";
+      } else {
+        root.dataset.theme = mode;
+        try {
+          localStorage.setItem("theme", mode);
+        } catch {
+          /* ignore */
+        }
+        root.style.colorScheme = mode;
+      }
+      const text = mode === "system" ? "System" : mode === "dark" ? "Dark" : "Light";
+      label.textContent = text;
+      button.setAttribute("aria-label", `Color theme: ${text}. Activate to change.`);
+    };
+
+    apply(stored());
+
+    button.addEventListener("click", () => {
+      const current = stored();
+      const next = modes[(modes.indexOf(current) + 1) % modes.length] ?? "system";
+      apply(next);
+    });
+
+    media.addEventListener("change", () => {
+      if (stored() === "system") apply("system");
+    });
+  }
+</script>

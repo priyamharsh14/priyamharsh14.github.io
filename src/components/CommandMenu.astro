@@ -1,0 +1,141 @@
+---
+import { nav } from "../data/nav";
+---
+
+<div data-command-root>
+  <button
+    type="button"
+    data-command-open
+    class="inline-flex items-center gap-2 rounded-md border border-line px-2 py-1 text-sm text-muted hover:border-accent hover:text-fg"
+    aria-haspopup="dialog"
+    aria-controls="command-dialog"
+  >
+    Menu
+    <kbd data-command-kbd>⌘K</kbd>
+  </button>
+
+  <dialog id="command-dialog" data-command-dialog aria-labelledby="command-title">
+    <h2 id="command-title" class="sr-only">Navigate the site</h2>
+    <input
+      type="text"
+      data-command-input
+      placeholder="Go to a page"
+      aria-label="Search pages"
+      aria-controls="command-list"
+      autocomplete="off"
+      spellcheck="false"
+      class="w-full border-0 border-b border-line bg-transparent px-4 py-3 text-base text-fg outline-none placeholder:text-muted"
+    />
+    <ul id="command-list" role="listbox" data-command-list class="m-0 max-h-72 list-none overflow-auto p-2">
+      {
+        nav.map((item) => (
+          <li
+            role="option"
+            data-command-item
+            data-label={item.label}
+            data-keywords={item.keywords}
+            aria-selected="false"
+          >
+            <a href={item.href} class="block rounded-md px-3 py-2 text-fg no-underline">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p data-command-empty hidden class="px-4 py-6 text-sm text-muted">No matching pages.</p>
+  </dialog>
+</div>
+
+<script>
+  const root = document.querySelector("[data-command-root]");
+  if (root instanceof HTMLElement) {
+    const openButton = root.querySelector("[data-command-open]");
+    const dialog = root.querySelector("[data-command-dialog]");
+    const input = root.querySelector("[data-command-input]");
+    const empty = root.querySelector("[data-command-empty]");
+    const kbd = root.querySelector("[data-command-kbd]");
+    const items = [...root.querySelectorAll("[data-command-item]")].filter(
+      (item): item is HTMLElement => item instanceof HTMLElement,
+    );
+
+    if (
+      openButton instanceof HTMLButtonElement &&
+      dialog instanceof HTMLDialogElement &&
+      input instanceof HTMLInputElement &&
+      empty instanceof HTMLElement &&
+      kbd instanceof HTMLElement
+    ) {
+      const mac = /\b(Mac|iPhone|iPad)\b/i.test(navigator.userAgent);
+      kbd.textContent = mac ? "⌘K" : "Ctrl K";
+
+      const visible = () => items.filter((item) => !item.hidden);
+
+      const select = (target: HTMLElement | undefined) => {
+        for (const item of items) item.setAttribute("aria-selected", item === target ? "true" : "false");
+        target?.scrollIntoView({ block: "nearest" });
+      };
+
+      const filter = () => {
+        const query = input.value.trim().toLowerCase();
+        for (const item of items) {
+          const haystack = `${item.dataset.label ?? ""} ${item.dataset.keywords ?? ""}`.toLowerCase();
+          item.hidden = query.length > 0 && !haystack.includes(query);
+        }
+        const matches = visible();
+        empty.hidden = matches.length > 0;
+        select(matches[0]);
+      };
+
+      const move = (delta: number) => {
+        const matches = visible();
+        if (matches.length === 0) return;
+        const current = matches.findIndex((item) => item.getAttribute("aria-selected") === "true");
+        const next = current === -1 ? 0 : (current + delta + matches.length) % matches.length;
+        select(matches[next]);
+      };
+
+      let returnFocus: HTMLElement | null = null;
+
+      const show = () => {
+        if (dialog.open) {
+          dialog.close();
+          return;
+        }
+        returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        input.value = "";
+        filter();
+        dialog.showModal();
+        input.focus();
+      };
+
+      openButton.addEventListener("click", show);
+      input.addEventListener("input", filter);
+      dialog.addEventListener("close", () => returnFocus?.focus());
+
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          move(1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          move(-1);
+        } else if (event.key === "Enter") {
+          const current = visible().find((item) => item.getAttribute("aria-selected") === "true");
+          const link = current?.querySelector("a");
+          if (link instanceof HTMLAnchorElement) {
+            event.preventDefault();
+            window.location.href = link.href;
+          }
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+          event.preventDefault();
+          show();
+        }
+      });
+    }
+  }
+</script>

@@ -1,0 +1,131 @@
+---
+import Base from "../layouts/Base.astro";
+import { experience, profile } from "../data/profile";
+import { findRepo, formatStars, loadPublicRepos } from "../lib/github";
+import { getWork, getWriting } from "../lib/posts";
+
+const posts = (await getWriting(false)).slice(0, 3);
+const work = await getWork();
+const { repos } = await loadPublicRepos();
+
+const cards = [
+  ...work.map((entry) => {
+    const repo = findRepo(repos, entry.data.repo);
+    const bits = [repo?.language, repo?.archived ? "Archived" : null, formatStars(repo?.stars ?? null)].filter(
+      (bit): bit is string => Boolean(bit),
+    );
+    return {
+      href: `/work/${entry.id}/`,
+      title: entry.data.title,
+      description: entry.data.description,
+      meta: bits.join(" · "),
+    };
+  }),
+  {
+    href: "/security/",
+    title: "Security research",
+    description:
+      "Hack The Box Hall of Fame, and critical findings reported through official channels.",
+    meta: "Past work",
+  },
+];
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: experience.role,
+  email: `mailto:${profile.email}`,
+  url: Astro.site?.href ?? "https://priyamharsh14.github.io/",
+  homeLocation: profile.location,
+  worksFor: {
+    "@type": "Organization",
+    name: experience.organization,
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "St. Xavier's College, Ranchi",
+  },
+  sameAs: profile.socials.map((item) => item.href),
+};
+---
+
+<Base>
+  <script type="application/ld+json" set:html={JSON.stringify(person)} />
+  <h1 class="text-3xl font-semibold tracking-tight">{profile.name}</h1>
+  <p class="mt-4 text-lg leading-relaxed">{profile.hero}</p>
+  <p class="mt-3 font-mono text-sm text-muted">{profile.location}</p>
+  <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+    {
+      profile.socials.map((item) => (
+        <li>
+          <a class="link" href={item.href} rel="me">
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a class="link" href={`mailto:${profile.email}`}>Email</a>
+    </li>
+  </ul>
+
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="about-heading">
+    <h2 id="about-heading" class="text-xl font-semibold tracking-tight">About</h2>
+    <div class="mt-4 space-y-4 leading-relaxed">
+      <p>
+        I'm a lead software engineer at {experience.organization} in {experience.location}. I've been there since
+        2021, and I've been a lead since February 2024. I build backend systems, cloud infrastructure, and mobile
+        apps.
+      </p>
+      <p>
+        <a class="link" href="/security/">Before infrastructure, I broke things (responsibly).</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="work-heading">
+    <h2 id="work-heading" class="text-xl font-semibold tracking-tight">Selected work</h2>
+    <div class="mt-4 grid gap-3">
+      {
+        cards.map((card) => (
+          <a class="card" href={card.href}>
+            <h3 class="font-medium">{card.title}</h3>
+            <p class="mt-1 text-sm leading-relaxed text-muted">{card.description}</p>
+            <p class="mt-3 font-mono text-xs text-muted">{card.meta}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="writing-heading">
+    <h2 id="writing-heading" class="text-xl font-semibold tracking-tight">Recent writing</h2>
+    {
+      posts.length === 0 ? (
+        <p class="mt-4 text-muted">
+          Nothing published yet. <a class="link" href="/writing/">Writing</a> is where posts will show up.
+        </p>
+      ) : (
+        <ul class="mt-4 grid gap-4">
+          {posts.map((post) => (
+            <li>
+              <a class="link text-base" href={`/writing/${post.id}/`}>
+                {post.data.title}
+              </a>
+              <p class="mt-1 text-sm text-muted">{post.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  <section class="mt-12 border-t border-line pt-8" id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading" class="text-xl font-semibold tracking-tight">Contact</h2>
+    <p class="mt-4 leading-relaxed">
+      Email <a class="link" href={`mailto:${profile.email}`}>{profile.email}</a>, or use the
+      <a class="link" href="/contact/">contact page</a>.
+    </p>
+  </section>
+</Base>

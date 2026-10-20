@@ -1,0 +1,102 @@
+---
+import { integrations } from "../config";
+import { profile } from "../data/profile";
+
+const form = integrations.web3forms;
+const ready = form.enabled && form.accessKey.length > 0;
+---
+
+<!-- TODO: Web3Forms stays disabled until integrations.web3forms in src/config.ts is filled in. -->
+{
+  ready ? (
+    <form action="https://api.web3forms.com/submit" method="POST" class="mt-6 grid gap-4">
+      <input type="hidden" name="access_key" value={form.accessKey} />
+      <input type="hidden" name="subject" value="Message from priyamharsh14.github.io" />
+      <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+      <label class="grid gap-1 text-sm">
+        Name
+        <input
+          required
+          type="text"
+          name="name"
+          autocomplete="name"
+          class="rounded-md border border-line bg-card px-3 py-2 text-base text-fg"
+        />
+      </label>
+      <label class="grid gap-1 text-sm">
+        Email
+        <input
+          required
+          type="email"
+          name="email"
+          autocomplete="email"
+          class="rounded-md border border-line bg-card px-3 py-2 text-base text-fg"
+        />
+      </label>
+      <label class="grid gap-1 text-sm">
+        Message
+        <textarea
+          required
+          name="message"
+          rows="5"
+          class="rounded-md border border-line bg-card px-3 py-2 text-base text-fg"
+        />
+      </label>
+      <button
+        type="submit"
+        class="w-fit rounded-md border border-line px-3 py-2 text-sm text-fg hover:border-accent"
+      >
+        Send
+      </button>
+    </form>
+  ) : (
+    <div class="mt-6">
+      <p class="todo">
+        TODO: the form is wired and switched off. Add a Web3Forms access key in <code>src/config.ts</code> when
+        you want it. Email already works:{" "}
+        <a class="link" href={`mailto:${profile.email}`}>
+          {profile.email}
+        </a>
+        .
+      </p>
+      <form class="grid gap-4" aria-disabled="true">
+        <label class="grid gap-1 text-sm">
+          Name
+          <input
+            disabled
+            type="text"
+            name="name"
+            autocomplete="name"
+            class="rounded-md border border-line bg-card px-3 py-2 text-base text-fg disabled:opacity-60"
+          />
+        </label>
+        <label class="grid gap-1 text-sm">
+          Email
+          <input
+            disabled
+            type="email"
+            name="email"
+            autocomplete="email"
+            class="rounded-md border border-line bg-card px-3 py-2 text-base text-fg disabled:opacity-60"
+          />
+        </label>
+        <label class="grid gap-1 text-sm">
+          Message
+          <textarea
+            disabled
+            name="message"
+            rows="5"
+            class="rounded-md border border-line bg-card px-3 py-2 text-base text-fg disabled:opacity-60"
+          />
+        </label>
+        <button
+          type="button"
+          disabled
+          class="w-fit rounded-md border border-line px-3 py-2 text-sm text-muted disabled:opacity-60"
+        >
+          Send
+        </button>
+      </form>
+    </div>
+  )
+}

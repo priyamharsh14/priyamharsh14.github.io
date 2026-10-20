@@ -1,0 +1,41 @@
+---
+import { integrations } from "../config";
+
+const giscus = integrations.giscus;
+const ready =
+  giscus.enabled &&
+  giscus.repo.length > 0 &&
+  giscus.repoId.length > 0 &&
+  giscus.category.length > 0 &&
+  giscus.categoryId.length > 0;
+---
+
+<!-- TODO: giscus is disabled. Fill integrations.giscus in src/config.ts after enabling Discussions. -->
+{
+  ready ? (
+    <section class="mt-12 border-t border-line pt-8" aria-label="Comments">
+      <script
+        is:inline
+        src="https://giscus.app/client.js"
+        data-repo={giscus.repo}
+        data-repo-id={giscus.repoId}
+        data-category={giscus.category}
+        data-category-id={giscus.categoryId}
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      />
+    </section>
+  ) : (
+    <p class="todo">
+      TODO: comments are off. Configure giscus in <code>src/config.ts</code> when you want them on posts.
+    </p>
+  )
+}

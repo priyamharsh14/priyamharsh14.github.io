@@ -1,0 +1,63 @@
+---
+import Base from "../layouts/Base.astro";
+import { formatStars, loadPublicRepos, splitRepos } from "../lib/github";
+
+const loaded = await loadPublicRepos();
+const { featured, rest } = splitRepos(loaded.repos);
+
+function meta(repo: (typeof loaded.repos)[number]): string {
+  return [repo.language, repo.archived ? "Archived" : null, formatStars(repo.stars)]
+    .filter((bit): bit is string => Boolean(bit))
+    .join(" · ");
+}
+---
+
+<Base title="Projects" description="Public repositories by Priyam Harsh. Star counts load from GitHub at build time.">
+  <h1 class="text-3xl font-semibold tracking-tight">Projects</h1>
+  <p class="mt-4 leading-relaxed text-muted">
+    Public repositories on <a class="link" href="https://github.com/priyamharsh14" rel="me">GitHub</a>. Star counts
+    are read from the GitHub API when the site is built. Forks are left out.
+  </p>
+  {
+    !loaded.fromApi && (
+      <p class="todo">
+        TODO: this build could not reach the GitHub API, so star counts are omitted. Nothing is hard-coded. Rebuild
+        when the API is reachable.
+      </p>
+    )
+  }
+
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="featured-heading">
+    <h2 id="featured-heading" class="text-xl font-semibold tracking-tight">Featured</h2>
+    <div class="mt-4 grid gap-3">
+      {
+        featured.map((repo) => (
+          <a class="card" href={repo.url}>
+            <h3 class="font-medium">{repo.name}</h3>
+            <p class="mt-1 text-sm leading-relaxed text-muted">
+              {repo.description ?? "No description on GitHub."}
+            </p>
+            <p class="mt-3 font-mono text-xs text-muted">{meta(repo)}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="more-heading">
+    <h2 id="more-heading" class="text-xl font-semibold tracking-tight">More</h2>
+    <ul class="mt-4 divide-y divide-line border-y border-line">
+      {
+        rest.map((repo) => (
+          <li class="py-3">
+            <a class="link" href={repo.url}>
+              {repo.name}
+            </a>
+            <p class="mt-1 text-sm text-muted">{repo.description ?? "No description on GitHub."}</p>
+            <p class="mt-1 font-mono text-xs text-muted">{meta(repo)}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

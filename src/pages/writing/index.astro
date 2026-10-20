@@ -1,0 +1,59 @@
+---
+import Base from "../../layouts/Base.astro";
+import { formatDate, getWriting } from "../../lib/posts";
+
+const posts = await getWriting(import.meta.env.DEV);
+const published = posts.filter((post) => post.data.draft !== true);
+const drafts = posts.filter((post) => post.data.draft === true);
+---
+
+<Base title="Writing" description="Notes from Priyam Harsh. Posts are MDX files in this repository.">
+  <h1 class="text-3xl font-semibold tracking-tight">Writing</h1>
+  <p class="mt-4 leading-relaxed text-muted">
+    Essays will live here. Subscribe with <a class="link" href="/rss.xml">RSS</a>.
+  </p>
+  <p class="todo">
+    TODO: a sample post is drafted at <code>src/content/writing/building-sniffndetect.mdx</code> and is not
+    published. Edit it, then set <code>draft: false</code>. See the README for the steps.
+  </p>
+
+  {
+    published.length === 0 ? (
+      <p class="mt-8 text-muted">Nothing published yet.</p>
+    ) : (
+      <ul class="mt-8 grid gap-6">
+        {published.map((post) => (
+          <li>
+            <p class="font-mono text-xs text-muted">{formatDate(post.data.pubDate)}</p>
+            <a class="link mt-1 inline-block text-lg" href={`/writing/${post.id}/`}>
+              {post.data.title}
+            </a>
+            <p class="mt-1 text-sm leading-relaxed text-muted">{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <p class="mt-2 font-mono text-xs text-muted">{post.data.tags.join(" · ")}</p>
+            )}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    import.meta.env.DEV && drafts.length > 0 && (
+      <section class="mt-12 border-t border-line pt-8">
+        <h2 class="text-xl font-semibold tracking-tight">Drafts</h2>
+        <p class="mt-2 text-sm text-muted">Visible in local dev only. Production builds skip these.</p>
+        <ul class="mt-4 grid gap-4">
+          {drafts.map((post) => (
+            <li>
+              <a class="link" href={`/writing/${post.id}/`}>
+                {post.data.title}
+              </a>
+              <span class="ml-2 font-mono text-xs text-muted">draft</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>

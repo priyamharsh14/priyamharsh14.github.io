@@ -1,0 +1,24 @@
+---
+import ContactForm from "../components/ContactForm.astro";
+import Base from "../layouts/Base.astro";
+import { profile } from "../data/profile";
+---
+
+<Base title="Contact" description="Email Priyam Harsh. A contact form can be switched on later.">
+  <h1 class="text-3xl font-semibold tracking-tight">Contact</h1>
+  <p class="mt-4 text-lg leading-relaxed">
+    <a class="link" href={`mailto:${profile.email}`}>{profile.email}</a>
+  </p>
+  <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+    {
+      profile.socials.map((item) => (
+        <li>
+          <a class="link" href={item.href} rel="me">
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <ContactForm />
+</Base>
