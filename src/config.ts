@@ -2,6 +2,12 @@
 
 export const siteUrl = "https://priyamharsh14.github.io";
 
+/**
+ * TODO: set this to true when /projects has work you want people to find.
+ * While false, the page stays at /projects/ but is left out of the header and the command menu.
+ */
+export const showProjectsInNav = false;
+
 export const integrations = {
   /**
    * TODO: create a free GoatCounter account (https://www.goatcounter.com),

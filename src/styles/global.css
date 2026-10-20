@@ -118,6 +118,7 @@ body {
   text-underline-offset: 0.2em;
 }
 
+.panel,
 .card {
   display: block;
   border: 1px solid var(--line);

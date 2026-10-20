@@ -1,20 +1,13 @@
 ---
+import Capabilities from "../../components/Capabilities.astro";
 import Base from "../../layouts/Base.astro";
 import { experience } from "../../data/profile";
-import { findRepo, formatStars, loadPublicRepos } from "../../lib/github";
-import { getWork } from "../../lib/posts";
-
-const entries = await getWork();
-const { repos } = await loadPublicRepos();
 ---
 
-<Base
-  title="Work"
-  description="Open-source projects and a short note on employment. No case studies of internal systems."
->
+<Base title="Work" description="A short employment note, and the kinds of systems Priyam Harsh works on.">
   <h1 class="text-3xl font-semibold tracking-tight">Work</h1>
   <p class="mt-4 leading-relaxed text-muted">
-    Open source and older personal projects. Employment is one short entry, not a case study.
+    One employment line, then the kinds of systems I work on. Nothing here is a case study.
   </p>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="experience-heading">
@@ -34,36 +27,8 @@ const { repos } = await loadPublicRepos();
     </article>
   </section>
 
-  <section class="mt-12 border-t border-line pt-8" aria-labelledby="oss-heading">
-    <h2 id="oss-heading" class="text-xl font-semibold tracking-tight">Open source</h2>
-    <div class="mt-4 grid gap-3">
-      {
-        entries.map((entry) => {
-          const repo = findRepo(repos, entry.data.repo);
-          const bits = [repo?.language, repo?.archived ? "Archived" : null, formatStars(repo?.stars ?? null)].filter(
-            (bit): bit is string => Boolean(bit),
-          );
-          return (
-            <a class="card" href={`/work/${entry.id}/`}>
-              <h3 class="font-medium">{entry.data.title}</h3>
-              <p class="mt-1 text-sm leading-relaxed text-muted">{entry.data.description}</p>
-              <p class="mt-3 font-mono text-xs text-muted">{bits.join(" · ")}</p>
-            </a>
-          );
-        })
-      }
-    </div>
-    <p class="mt-4 text-sm">
-      <a class="link" href="/projects/">All public repositories</a>
-    </p>
-  </section>
-
-  <section class="mt-12 border-t border-line pt-8" aria-labelledby="research-heading">
-    <h2 id="research-heading" class="text-xl font-semibold tracking-tight">Security research</h2>
-    <p class="mt-4 leading-relaxed">
-      <a class="link" href="/security/">Before infrastructure, I broke things (responsibly).</a>{" "}
-      Hack The Box Hall of Fame, and critical findings reported through official channels. No system names and no
-      vulnerability details.
-    </p>
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="capabilities-heading">
+    <h2 id="capabilities-heading" class="text-xl font-semibold tracking-tight">What I work on</h2>
+    <Capabilities />
   </section>
 </Base>

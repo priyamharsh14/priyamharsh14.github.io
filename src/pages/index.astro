@@ -1,34 +1,10 @@
 ---
+import Capabilities from "../components/Capabilities.astro";
 import Base from "../layouts/Base.astro";
 import { experience, profile } from "../data/profile";
-import { findRepo, formatStars, loadPublicRepos } from "../lib/github";
-import { getWork, getWriting } from "../lib/posts";
+import { getWriting } from "../lib/posts";
 
 const posts = (await getWriting(false)).slice(0, 3);
-const work = await getWork();
-const { repos } = await loadPublicRepos();
-
-const cards = [
-  ...work.map((entry) => {
-    const repo = findRepo(repos, entry.data.repo);
-    const bits = [repo?.language, repo?.archived ? "Archived" : null, formatStars(repo?.stars ?? null)].filter(
-      (bit): bit is string => Boolean(bit),
-    );
-    return {
-      href: `/work/${entry.id}/`,
-      title: entry.data.title,
-      description: entry.data.description,
-      meta: bits.join(" · "),
-    };
-  }),
-  {
-    href: "/security/",
-    title: "Security research",
-    description:
-      "Hack The Box Hall of Fame, and critical findings reported through official channels.",
-    meta: "Past work",
-  },
-];
 
 const person = {
   "@context": "https://schema.org",
@@ -85,18 +61,8 @@ const person = {
   </section>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="work-heading">
-    <h2 id="work-heading" class="text-xl font-semibold tracking-tight">Selected work</h2>
-    <div class="mt-4 grid gap-3">
-      {
-        cards.map((card) => (
-          <a class="card" href={card.href}>
-            <h3 class="font-medium">{card.title}</h3>
-            <p class="mt-1 text-sm leading-relaxed text-muted">{card.description}</p>
-            <p class="mt-3 font-mono text-xs text-muted">{card.meta}</p>
-          </a>
-        ))
-      }
-    </div>
+    <h2 id="work-heading" class="text-xl font-semibold tracking-tight">What I work on</h2>
+    <Capabilities />
   </section>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="writing-heading">

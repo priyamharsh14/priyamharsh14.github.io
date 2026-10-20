@@ -5,11 +5,6 @@ export async function getWriting(includeDrafts = false): Promise<CollectionEntry
   return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 }
 
-export async function getWork(): Promise<CollectionEntry<"work">[]> {
-  const entries = await getCollection("work");
-  return entries.sort((a, b) => a.data.order - b.data.order);
-}
-
 export function formatDate(date: Date): string {
   return new Intl.DateTimeFormat("en-GB", {
     day: "numeric",

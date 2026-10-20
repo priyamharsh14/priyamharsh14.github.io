@@ -20,9 +20,6 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v6
         env:
-          # Public read of github.com/priyamharsh14 repos for star counts.
-          # The site still builds if this is missing; stars render as unavailable.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ASTRO_TELEMETRY_DISABLED: "1"
 
   deploy:

@@ -1,3 +1,5 @@
+import { showProjectsInNav } from "../config";
+
 export type NavItem = {
   href: string;
   label: string;
@@ -6,10 +8,10 @@ export type NavItem = {
   primary: boolean;
 };
 
-export const nav: NavItem[] = [
+const items: NavItem[] = [
   { href: "/", label: "Home", keywords: "index start", primary: false },
-  { href: "/work/", label: "Work", keywords: "projects open source experience", primary: true },
-  { href: "/projects/", label: "Projects", keywords: "github repos sniffndetect prawler", primary: true },
+  { href: "/work/", label: "Work", keywords: "experience capabilities", primary: true },
+  { href: "/projects/", label: "Projects", keywords: "personal work", primary: true },
   { href: "/security/", label: "Security", keywords: "research hack the box disclosure", primary: true },
   { href: "/writing/", label: "Writing", keywords: "blog posts rss essays", primary: true },
   { href: "/now/", label: "Now", keywords: "currently focus this month", primary: false },
@@ -17,6 +19,8 @@ export const nav: NavItem[] = [
   { href: "/about/", label: "About", keywords: "bio timeline resume education", primary: false },
   { href: "/contact/", label: "Contact", keywords: "email mail hello", primary: false },
 ];
+
+export const nav: NavItem[] = items.filter((item) => showProjectsInNav || item.href !== "/projects/");
 
 export function isCurrent(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";

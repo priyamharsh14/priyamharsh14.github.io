@@ -46,6 +46,32 @@ export const timeline = [
   },
 ] as const;
 
+/**
+ * TODO: Priyam — edit these blurbs. They only name skills, not an employer’s systems.
+ */
+export const capabilities = [
+  {
+    title: "Backend and distributed systems",
+    summary: "Python, Node, Django, Flask, Express, RabbitMQ, MongoDB, and SQL.",
+    href: "",
+  },
+  {
+    title: "Cloud infrastructure",
+    summary: "AWS, GCP, Docker, Nginx, and CI/CD.",
+    href: "",
+  },
+  {
+    title: "Mobile and cross-platform",
+    summary: "Kotlin, Flutter, iOS/Android, and WebRTC.",
+    href: "",
+  },
+  {
+    title: "Security research",
+    summary: "Past work. Hack The Box Hall of Fame, and critical findings reported through official channels.",
+    href: "/security/",
+  },
+] as const;
+
 export const skillGroups = [
   {
     label: "Languages",

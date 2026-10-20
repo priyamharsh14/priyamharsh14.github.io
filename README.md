@@ -15,8 +15,6 @@ pnpm dev
 
 `pnpm build` and `npm run build` both run the production build. `pnpm preview` serves `dist/`.
 
-Star counts are fetched from the public GitHub API while the site builds. If that request fails, the pages still build and show “Stars unavailable”. No star count is written into the source.
-
 ## Write a post
 
 Posts are MDX files in `src/content/writing/`. Add one in Cursor and push; you do not need a CMS.
@@ -39,7 +37,7 @@ tags:
 4. Keep `draft: true` until you want it public. Drafts are omitted from the production build, the sitemap, and `/rss.xml`. Run `pnpm dev` to preview a draft locally; it is listed under “Drafts” on `/writing/` in dev only.
 5. Set `draft: false` and push to `master` (after this pull request is merged). GitHub Actions publishes the site, and the post shows up on `/writing/` and in the RSS feed.
 
-`src/content/writing/building-sniffndetect.mdx` is a sample draft. It is not published. Edit or delete it before flipping `draft`.
+`src/content/writing/hello-world.mdx` is a sample draft (“Hello, world: why I'm starting to write”). It is not published. Edit or delete it before flipping `draft`.
 
 There is a short TODO on `/writing/` pointing at that file. Remove that paragraph once you do not need the reminder.
 
@@ -48,8 +46,8 @@ There is a short TODO on `/writing/` pointing at that file. Remove that paragrap
 | Path | What it is |
 | --- | --- |
 | `/` | Home |
-| `/work/` | Open source, plus one short employment entry |
-| `/projects/` | Public GitHub repositories |
+| `/work/` | One short employment entry, plus generic capability areas |
+| `/projects/` | Empty for now. Hidden from the header and command menu until `showProjectsInNav` in `src/config.ts` is `true` |
 | `/security/` | Security research, past tense |
 | `/writing/` | Blog index |
 | `/now/` | Placeholder |
