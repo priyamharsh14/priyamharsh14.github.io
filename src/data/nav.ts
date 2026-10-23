@@ -10,7 +10,7 @@ export type NavItem = {
 
 const items: NavItem[] = [
   { href: "/", label: "Home", keywords: "index start", primary: false },
-  { href: "/work/", label: "Work", keywords: "experience domains pipelines infrastructure", primary: true },
+  { href: "/work/", label: "Work", keywords: "experience capabilities", primary: true },
   { href: "/projects/", label: "Projects", keywords: "personal work", primary: true },
   { href: "/security/", label: "Security", keywords: "research hack the box disclosure", primary: true },
   { href: "/writing/", label: "Writing", keywords: "blog posts rss essays", primary: true },

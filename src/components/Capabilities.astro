@@ -1,0 +1,23 @@
+---
+import { capabilities } from "../data/profile";
+---
+
+<div class="mt-4 grid gap-3">
+  {
+    capabilities.map((item) => {
+      const body = (
+        <>
+          <h3 class="font-medium">{item.title}</h3>
+          <p class="mt-1 text-sm leading-relaxed text-muted">{item.summary}</p>
+        </>
+      );
+      return item.href ? (
+        <a class="card" href={item.href}>
+          {body}
+        </a>
+      ) : (
+        <article class="panel">{body}</article>
+      );
+    })
+  }
+</div>

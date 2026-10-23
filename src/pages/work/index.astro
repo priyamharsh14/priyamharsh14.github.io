@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { earlierRoles, education, experience, workDomains, stack } from "../../data/profile";
+import { earlierRoles, education, experience, stack } from "../../data/profile";
 ---
 
 <Base title="Work" description="Lead Software Developer at Travvir, earlier roles, and education.">
@@ -23,19 +23,9 @@ import { earlierRoles, education, experience, workDomains, stack } from "../../d
         }
       </ul>
       <p class="mt-4 leading-relaxed">{experience.summary}</p>
-
-      <div class="mt-8 grid gap-8">
-        {
-          workDomains.map((domain) => (
-            <section class="domain-block" id={domain.id} aria-labelledby={`${domain.id}-heading`}>
-              <h4 id={`${domain.id}-heading`} class="font-mono text-sm font-medium tracking-wide text-muted">
-                {domain.label}
-              </h4>
-              <p class="mt-2 leading-relaxed">{domain.bullet}</p>
-            </section>
-          ))
-        }
-      </div>
+      <ul class="mt-4 list-disc space-y-2 pl-5 leading-relaxed">
+        {experience.bullets.map((bullet) => <li>{bullet}</li>)}
+      </ul>
     </article>
 
     {
