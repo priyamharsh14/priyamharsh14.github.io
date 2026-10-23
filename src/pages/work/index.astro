@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { earlierRoles, education, experience, howWeBuiltIt, stack } from "../../data/profile";
+import { earlierRoles, education, experience, stack } from "../../data/profile";
 ---
 
 <Base title="Work" description="Lead Software Developer at Travvir, earlier roles, and education.">
@@ -52,24 +52,6 @@ import { earlierRoles, education, experience, howWeBuiltIt, stack } from "../../
             <p class="mt-1 font-mono text-sm text-muted">{item.dates}</p>
           </li>
         ))
-      }
-    </ul>
-  </section>
-
-  <section class="mt-12 border-t border-line pt-8" aria-labelledby="how-heading">
-    <h2 id="how-heading" class="text-xl font-semibold tracking-tight">How we built it</h2>
-    <p class="mt-4 leading-relaxed text-muted">
-      Decisions and habits. Nothing here is a description of the technology, and none of it is confirmed copy yet.
-    </p>
-    <ul class="mt-4 grid list-none gap-3 p-0">
-      {
-        howWeBuiltIt.map((item) =>
-          item.kind === "draft" ? (
-            <li class="todo">TODO: Priyam — draft. Confirm or rewrite. {item.text}</li>
-          ) : (
-            <li class="todo">TODO: Priyam — write this in your own words. Prompt: {item.prompt}</li>
-          ),
-        )
       }
     </ul>
   </section>

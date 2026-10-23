@@ -55,36 +55,6 @@ export const earlierRoles = [
   },
 ] as const;
 
-/**
- * How we built it. Drafts are unconfirmed wording. Prompts are blanks, not claims.
- */
-export const howWeBuiltIt = [
-  {
-    kind: "draft",
-    text: "Treat the network and the device as unreliable. A flow that only works on a fast connection, with a careful operator, fails the day it leaves the desk.",
-  },
-  {
-    kind: "draft",
-    text: "Long-running compute has to be observable. If you cannot tell whether a job is working, stuck, or finished, you cannot operate it.",
-  },
-  {
-    kind: "prompt",
-    prompt: "Shipping a rough version early and improving it with real customer captures.",
-  },
-  {
-    kind: "prompt",
-    prompt: "Deciding what to build vs buy.",
-  },
-  {
-    kind: "prompt",
-    prompt: "Keeping a small team on call for a system that runs 24/7.",
-  },
-  {
-    kind: "prompt",
-    prompt: "Testing changes against real data before they go out.",
-  },
-] as const;
-
 export const timeline = [
   {
     dates: "Feb 2024 – present",
