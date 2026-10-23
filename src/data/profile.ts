@@ -1,5 +1,7 @@
 /**
- * Public facts only. No client names, product internals, techniques, specs, or metrics.
+ * Public facts only. Process, decisions, and approved impact numbers are fine.
+ * Nothing about the tech behind the pipeline, the apps, or the infrastructure:
+ * no specs, resolutions, CPU/GPU, clouds, servers, or SDK internals.
  * Travvir’s public site is https://travvir.com/ (checked against the live homepage).
  */
 
@@ -25,10 +27,10 @@ export const experience = {
     { title: "SDE1 (Software Development Engineer I)", dates: "Sep 2021 – Jan 2024" },
   ],
   bullets: [
-    "Built, deployed and has improved the company's 16K panorama image pipeline over several years, running on CPU and GPU compute.",
-    "Helped build a custom orchestration system from scratch that scales automatically across CPU and GPU instances on multiple clouds and our in-house servers.",
-    "Deployed and maintains the iOS and Android apps, including SDKs for both platforms.",
-    "Helped with data collection, data preparation and in-house model training.",
+    "Built and have run the company's image processing pipeline since its early days, delivering 20,000+ panoramas for clients and customers.",
+    "Helped build the system that runs our processing workloads, so that it scales on its own as demand changes.",
+    "Ship and maintain the company's mobile capture apps and the tools partners use to build on them.",
+    "Lead the engineering team, from planning and reviews to production.",
   ],
 } as const;
 
@@ -54,13 +56,33 @@ export const earlierRoles = [
 ] as const;
 
 /**
- * TODO: Priyam — confirm or rewrite these. They are general lessons, not a description of Travvir.
+ * How we built it. Drafts are unconfirmed wording. Prompts are blanks, not claims.
  */
-export const lessons = [
-  "Treat the network and the device as unreliable. A flow that only works on a fast connection, with a careful operator, fails the day it leaves the desk.",
-  "Long-running compute has to be observable. If you cannot tell whether a job is working, stuck, or finished, you cannot operate it.",
-  "Running on more than one cloud is only useful if you can leave one of them. Keep the work portable, and keep the cloud-specific pieces at the edge.",
-  "Own the path from the phone to the service behind it. The failures that matter sit in that handoff, not in either half alone.",
+export const howWeBuiltIt = [
+  {
+    kind: "draft",
+    text: "Treat the network and the device as unreliable. A flow that only works on a fast connection, with a careful operator, fails the day it leaves the desk.",
+  },
+  {
+    kind: "draft",
+    text: "Long-running compute has to be observable. If you cannot tell whether a job is working, stuck, or finished, you cannot operate it.",
+  },
+  {
+    kind: "prompt",
+    prompt: "Shipping a rough version early and improving it with real customer captures.",
+  },
+  {
+    kind: "prompt",
+    prompt: "Deciding what to build vs buy.",
+  },
+  {
+    kind: "prompt",
+    prompt: "Keeping a small team on call for a system that runs 24/7.",
+  },
+  {
+    kind: "prompt",
+    prompt: "Testing changes against real data before they go out.",
+  },
 ] as const;
 
 export const timeline = [
@@ -102,8 +124,6 @@ export const stack = [
   "Flutter",
   "RabbitMQ",
   "WebRTC",
-  "OpenCV",
-  "CUDA",
   "Nginx",
   "Docker",
   "AWS",

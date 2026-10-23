@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { earlierRoles, education, experience, lessons, stack } from "../../data/profile";
+import { earlierRoles, education, experience, howWeBuiltIt, stack } from "../../data/profile";
 ---
 
 <Base title="Work" description="Lead Software Developer at Travvir, earlier roles, and education.">
@@ -56,15 +56,22 @@ import { earlierRoles, education, experience, lessons, stack } from "../../data/
     </ul>
   </section>
 
-  <section class="mt-12 border-t border-line pt-8" aria-labelledby="lessons-heading">
-    <h2 id="lessons-heading" class="text-xl font-semibold tracking-tight">Lessons from building</h2>
-    <p class="todo">
-      TODO: Priyam — draft. Confirm or rewrite each lesson in <code>src/data/profile.ts</code>. These are general
-      engineering notes, not a description of Travvir.
+  <section class="mt-12 border-t border-line pt-8" aria-labelledby="how-heading">
+    <h2 id="how-heading" class="text-xl font-semibold tracking-tight">How we built it</h2>
+    <p class="mt-4 leading-relaxed text-muted">
+      Decisions and habits. Nothing here is a description of the technology, and none of it is confirmed copy yet.
     </p>
-    <ol class="mt-4 grid list-decimal gap-4 pl-5 leading-relaxed">
-      {lessons.map((lesson) => <li>{lesson}</li>)}
-    </ol>
+    <ul class="mt-4 grid list-none gap-3 p-0">
+      {
+        howWeBuiltIt.map((item) =>
+          item.kind === "draft" ? (
+            <li class="todo">TODO: Priyam — draft. Confirm or rewrite. {item.text}</li>
+          ) : (
+            <li class="todo">TODO: Priyam — write this in your own words. Prompt: {item.prompt}</li>
+          ),
+        )
+      }
+    </ul>
   </section>
 
   <section class="mt-12 border-t border-line pt-8" aria-labelledby="skills-heading">
