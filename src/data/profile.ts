@@ -8,7 +8,14 @@
 export const profile = {
   name: "Priyam Harsh",
   location: "New Delhi, India",
-  hero: "Lead Software Developer. I build backend systems, cloud infrastructure and mobile apps. Former security researcher.",
+  /**
+   * First-viewport proof. Also used as the default meta description.
+   */
+  hero: "A lead engineer who designs and runs production systems — pipelines, cloud infrastructure, and mobile apps — with a security researcher's instincts.",
+  /**
+   * Approved impact figure only. Do not invent other numbers.
+   */
+  impact: "20,000+ panoramas delivered for clients and customers.",
   email: "priyamharsh14@gmail.com",
   socials: [
     { label: "GitHub", href: "https://github.com/priyamharsh14" },
@@ -17,6 +24,9 @@ export const profile = {
   ],
 } as const;
 
+/**
+ * Travvir employment. Bullet strings are approved copy — keep them exact.
+ */
 export const experience = {
   organization: "Travvir",
   role: "Lead Software Developer",
@@ -33,6 +43,53 @@ export const experience = {
     "Lead the engineering team, from planning and reviews to production.",
   ],
 } as const;
+
+/**
+ * Domain ledger for home, with anchors into /work (or /security).
+ * `evidence` is one allowed line each. `bullet` is the matching approved Work bullet, or null for security.
+ */
+export const domains = [
+  {
+    id: "system-design",
+    label: "System design",
+    evidence: experience.bullets[3],
+    href: "/work/#system-design",
+    bullet: experience.bullets[3],
+  },
+  {
+    id: "processing-pipelines",
+    label: "Processing pipelines",
+    evidence: experience.bullets[0],
+    href: "/work/#processing-pipelines",
+    bullet: experience.bullets[0],
+  },
+  {
+    id: "cloud-infrastructure",
+    label: "Cloud infrastructure",
+    evidence: experience.bullets[1],
+    href: "/work/#cloud-infrastructure",
+    bullet: experience.bullets[1],
+  },
+  {
+    id: "mobile-apps",
+    label: "Mobile apps",
+    evidence: experience.bullets[2],
+    href: "/work/#mobile-apps",
+    bullet: experience.bullets[2],
+  },
+  {
+    id: "security-research",
+    label: "Security research",
+    evidence: "2019–2021. Hack The Box Hall of Fame, and acknowledgements from NCIIPC and CERT-In.",
+    href: "/security/",
+    bullet: null,
+  },
+] as const;
+
+/** Work-page domain groups: only domains that carry an approved Travvir bullet. */
+export const workDomains = domains.filter(
+  (domain): domain is (typeof domains)[number] & { bullet: string } => domain.bullet !== null,
+);
 
 export const earlierRoles = [
   {
@@ -100,19 +157,6 @@ export const stack = [
   "GCP",
   "MongoDB",
   "SQL",
-] as const;
-
-export const capabilities = [
-  {
-    title: "Stack",
-    summary: stack.join(", "),
-    href: "",
-  },
-  {
-    title: "Security research",
-    summary: "2019–2021. Hack The Box Hall of Fame, and acknowledgements from NCIIPC and CERT-In.",
-    href: "/security/",
-  },
 ] as const;
 
 export const education = [

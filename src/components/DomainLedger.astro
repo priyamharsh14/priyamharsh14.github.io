@@ -1,0 +1,16 @@
+---
+import { domains } from "../data/profile";
+---
+
+<ol class="ledger mt-6" aria-label="Domains">
+  {
+    domains.map((domain, index) => (
+      <li class="ledger-row" style={`--ledger-i: ${index}`}>
+        <a class="ledger-link" href={domain.href}>
+          <span class="ledger-label">{domain.label}</span>
+          <span class="ledger-evidence">{domain.evidence}</span>
+        </a>
+      </li>
+    ))
+  }
+</ol>
